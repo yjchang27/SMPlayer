@@ -2,10 +2,14 @@ package com.yjchang.cs442.smplayer;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +59,11 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM),
                 mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
         );
+        byte[] coverByteArr = mmr.getEmbeddedPicture();
+        if (coverByteArr != null)
+            setCoverImage(BitmapFactory.decodeByteArray(coverByteArr, 0, coverByteArr.length));
+        else
+            setCoverImage(R.drawable.ic_music_note_black_24dp);
     }
 
     @UiThread
@@ -62,6 +71,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
         if (title != null)  titleText.setText(title);
         if (album != null)  albumText.setText(album);
         if (artist != null) artistText.setText(artist);
+    }
+
+    @UiThread
+    protected void setCoverImage(Bitmap coverBitmap) {
+        if (coverBitmap != null) coverImage.setImageBitmap(coverBitmap);
+    }
+
+    @UiThread
+    protected void setCoverImage(int coverDrawableId) {
+        Drawable coverDrawable =
+                ContextCompat.getDrawable(getApplicationContext(), coverDrawableId);
+        if(coverDrawable != null) coverImage.setImageDrawable(coverDrawable);
     }
 
 }

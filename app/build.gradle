@@ -27,9 +27,10 @@ dependencies {
 
     // Design Modules
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:cardview-v7:21.0.+'
-    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.+'
+    compile 'com.android.support:recyclerview-v7:23.3.+'
+    compile 'com.android.support:gridlayout-v7:23.3.+'
 
     // Android Annotations
     apt "org.androidannotations:androidannotations:$AAVersion"
